@@ -38,7 +38,20 @@ const Movie = require('./models/Movie')
 
 app.get('/', async (req, res) => {
     try {
-        const result = await Movie.find({}).sort({rate : -1}).limit(4)
+        const result = await Movie.find({}).sort({rate : -1}).limit(9)
+        res.json(result)
+        // res.send("allMovies")
+
+        
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+app.get('/:movieID', async (req, res) => {
+    try {
+        const { movieID } = req.params
+        const result = await Movie.findById(movieID)
         res.json(result)
         // res.send("allMovies")
 
